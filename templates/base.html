@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello from Flask</title>
+    <link rel="stylesheet" type="text/css" href="/static/app.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" />
+  </head>
+
+  <body>
+
+    {% if name %}
+      <h1>Hello {{ name }} poo!</h1>
+    {% else %}
+      <h1>Hello, World!</h1>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <!-- bootstrap is needy -->
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="/static/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+  </body>
+</html>

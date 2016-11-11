@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Raleway:200');
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fff;
+}
+
+.main {
+  background-color: #fff;
+  /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
+  position: absolute;
+  margin: auto;
+  height: 70%;
+  width: 85%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation-name: widen;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  /*transition: width 400ms ease-in-out*/
+}
+
+.bg-text {
+  font-family: 'Roboto Slab', monospace;
+  font-size: 8em;
+  position: absolute;
+  margin-top: -.4em;
+  color: rgba(0,0,0,0.1);
+}
+
+.left {
+  text-align: center;
+  color: white;
+  background-color: #2196F3;
+  display: block;
+  padding: 3em;
+  height: 100%;
+  transition: background-color 0.5s ease;
+}
+
+.right {
+  text-align: center;
+  color: white;
+  background-color: #2196F3;
+  display: inline;
+  padding: 3em;
+  height: 100%;
+  transition: background-color 0.5s ease;
+}
+
+.left:hover, .right:hover {
+  background-color: #42A5F5;
+}
+
+.btn {
+  position: relative;
+  top: 50%;
+}
+
+@keyframes widen {
+  0% {
+    height: 1px;
+    width: 1px;
+  }
+  100% {
+    width: 85%;
+    height: 80%;
+  }
+}

@@ -14,7 +14,13 @@ REQUESTS_API_URL = BASE_API_URL + 'requests/'
 @app.route('/')
 def index():
     name = requests.get(USER_API_URL).json()['_items'][0]['username']
-    return render_template('base.html', name=name)
+    current = requests.get(REQUESTS_API_URL).json()['_items']
+    return render_template('base.html', name=name, current=current)
+
+
+@app.route('/style')
+def style():
+    return render_template('test.html')
 
 
 @app.route('/request', methods=['GET', 'POST'])

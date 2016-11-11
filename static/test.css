@@ -4,76 +4,110 @@
   box-sizing:border-box;
 }
 
-html {
+html, body {
+  --dark-blue: #2196F3;
+  --dark-indigo: #303F9F;
+  --light-blue: #42A5F5;
+  --dark-grey: #55595c;
+  height: 100%;
   font-family: 'Open Sans', sans-serif;
-  background-color: #fff;
+  -webkit-animation:colour 15s linear infinite;
+  -moz-animation:colour 15s linear infinite;
 }
 
-.main {
-  background-color: #fff;
-  /*box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);*/
-  position: absolute;
-  margin: auto;
-  height: 70%;
-  width: 85%;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  animation-name: widen;
-  animation-duration: 0.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-fill-mode: none;
-  animation-play-state: running;
-  /*transition: width 400ms ease-in-out*/
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+  outline: none !important;
 }
 
-.bg-text {
-  font-family: 'Roboto Slab', monospace;
-  font-size: 8em;
-  position: absolute;
-  margin-top: -.4em;
-  color: rgba(0,0,0,0.1);
+.title {
+  font-family: 'Roboto Slab';
+  font-size: 5em;
 }
 
-.left {
-  text-align: center;
-  color: white;
-  background-color: #2196F3;
-  display: block;
-  padding: 3em;
+.container-table {
+  display: table;
+  vertical-align: middle;
   height: 100%;
-  transition: background-color 0.5s ease;
 }
 
-.right {
-  text-align: center;
-  color: white;
-  background-color: #2196F3;
-  display: inline;
-  padding: 3em;
-  height: 100%;
-  transition: background-color 0.5s ease;
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
 }
 
-.left:hover, .right:hover {
-  background-color: #42A5F5;
+.tip-top {
+  vertical-align: top;
+  visibility: visible !important;
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  -webkit-animation-name: slideUp;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease;
 }
 
-.btn {
-  position: relative;
-  top: 50%;
+#submit-div .form-control {
+  margin-top: 2em;
+  background-color: rgba(0,0,0,0);
+  border-style: none none solid none;
+  border-color: auto auto var(--dark-grey) auto;
+  border-radius: 0;
 }
 
-@keyframes widen {
+#submit-div select {
+  border-radius: 0;
+  background-color: #FAFAFA !important;
+}
+
+#submit-div label {
+  margin-top: 2em;
+  font-family: 'Roboto Slab';
+}
+
+@keyframes slideUp {
   0% {
-    height: 1px;
-    width: 1px;
+      transform: translateY(40%);
+  }
+  50% {
+      transform: translateY(1%);
   }
   100% {
-    width: 85%;
-    height: 80%;
+      transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes colour{
+  0%{
+    background: #EFEBE9
+  }
+  20%{
+    background: #F5F5F5
+  }
+  40%{
+    background: #E0E0E0
+  }
+  80%{
+    background: #FAFAFA
+  }
+  100%{
+    background: #EFEBE9
+  }
+}
+
+@-moz-keyframes colour{
+  0%{
+    background: #EFEBE9
+  }
+  20%{
+    background: #F5F5F5
+  }
+  40%{
+    background: #E0E0E0
+  }
+  80%{
+    background: #FAFAFA
+  }
+  100%{
+    background: #EFEBE9
   }
 }

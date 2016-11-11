@@ -1,5 +1,141 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Open+Sans|Raleway:200');
 
-body {
-  font-family: Open Sans;
+* {
+  box-sizing:border-box;
+}
+
+html, body {
+  --dark-blue: #2196F3;
+  --dark-indigo: #303F9F;
+  --light-blue: #42A5F5;
+  --dark-grey: #55595c;
+  height: 100%;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-animation:colour 15s linear infinite;
+  -moz-animation:colour 15s linear infinite;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+  outline: none !important;
+}
+
+#accordion a {
+  color: #E53935;
+}
+
+.tag {
+  margin-left: 0.4em;
+  font-family: Raleway;
+}
+
+.title a{
+  font-family: 'Roboto Slab';
+  font-size: 2em;
+  color: var(--dark-grey) !important;
+}
+
+.title a:hover {
+  text-decoration: none;
+}
+
+.container-table {
+  display: table;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.tip-top {
+  vertical-align: top;
+  visibility: visible !important;
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  -webkit-animation-name: slideUp;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease;
+}
+
+#view-div {
+  margin-top: 2em;
+}
+
+#filter {
+  margin-top: -20px !important;
+  margin: -2em 0 2em 0;
+  width: 40%;
+}
+
+#submit-div .form-control, #filter, .alert {
+  margin-top: 2em;
+  background-color: rgba(0,0,0,0);
+  border-style: none none solid none;
+  border-color: auto auto var(--dark-grey) auto;
+  border-radius: 0;
+}
+
+#submit-div select {
+  border-radius: 0;
+  background-color: #FAFAFA !important;
+}
+
+#submit-div label {
+  margin-top: 2em;
+  font-family: 'Raleway';
+}
+
+.card-labels {
+  font-family: 'Raleway';
+}
+
+@keyframes slideUp {
+  0% {
+      transform: translateY(40%);
+  }
+  50% {
+      transform: translateY(1%);
+  }
+  100% {
+      transform: translateY(0%);
+  }
+}
+
+@-webkit-keyframes colour{
+  0%{
+    background: #EFEBE9
+  }
+  20%{
+    background: #F5F5F5
+  }
+  40%{
+    background: #E0E0E0
+  }
+  80%{
+    background: #FAFAFA
+  }
+  100%{
+    background: #EFEBE9
+  }
+}
+
+@-moz-keyframes colour{
+  0%{
+    background: #EFEBE9
+  }
+  20%{
+    background: #F5F5F5
+  }
+  40%{
+    background: #E0E0E0
+  }
+  80%{
+    background: #FAFAFA
+  }
+  100%{
+    background: #EFEBE9
+  }
 }

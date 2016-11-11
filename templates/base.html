@@ -1,34 +1,154 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Hello from Flask</title>
+    <title>FEATUREME</title>
     <link rel="stylesheet" type="text/css" href="/static/app.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/tooltipster.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/css/themes/tooltipster-light.min.css" />
   </head>
 
   <body>
+    <!-- jinja always makes rendered space weird -->
+    <div class="container container-table">
+      <div class="buttons row vertical-center-row">
+        <div class="col-lg-12">
+          <h1 class="title"><a href="/">Feature Request</a></h1>
+          <p>Well hello there, you beautiful thing you.</p>
+          <button type="button" id="submit-button" class="btn btn-lg btn-outline-info">Submit Request</button>
+          <button type="button" id="view-button" class="btn btn-lg btn-outline-info">View Requests</button>
+          {% if status %}
+          <div class="alert alert-success" role="alert">
+            <strong>Thank you!</strong> Your request has been submitted.
+          </div>
+          {% endif %}
+        </div>
 
-    {% if name %}
-      <h1>Hello {{ name }} poo!</h1>
-    {% else %}
-      <h1>Hello, World!</h1>
-    {% endif %}
+        <div class="col-lg-12" id="view-div">
 
-    {% block content %}{% endblock %}
+        <input type="text" class="form-control" id="filter" name="filter" placeholder="Filter" />
+        <span id="filter-count"></span>
 
-    <hr>
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+          {% for item in current %}
+          <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ item._id }}" aria-expanded="true" aria-controls="collapseOne">
+                  {{ item.title }}
+                  {% for product_area in product_areas %}
+                  {% if item.product_areas is equalto product_area._id %}
+                  <span class="tag tag-default float-xs-right">{{ product_area.name }}</span>
+                  {% endif %}{% endfor %}
+                  {% for client in clients %}
+                  {% if item.client is equalto client._id %}
+                  <span class="tag tag-default float-xs-right">{{ client.name }}</span>
+                  {% endif %}{% endfor %}
+                </a></h5>
+            </div>
+            <div id="collapse{{ item._id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+              <div class="card-block">
+                <p><span class="card-labels">Opened: </span>{{ item.open_date|truncate(16, True, '') }}</p>
+                <p><span class="card-labels">Target Date: </span>{{ item.target_date|truncate(16, True, '') }}</p>
+                <hr />
+                {{ item.description }}
+                <hr />
+                {{ item._etag }} ||
+                {{ item._id }}
+                <hr />
+                <p><span class="card-labels">Related URL: </span>{{ item.related_url }}</p>
+                <h3>Priority {{ item.priority }}</h3>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          </div>
+        </div><!-- /view-div -->
 
-    <h2>Requests</h2>
-    <ul>
-    {% for item in current %}
-    <li>{{ item.title }} | {{ item._id}} | {{ item._etag }}
-    </li>
-    {% endfor %}
-    </ul>
+        <div class="col-lg-12" id="submit-div">
+          <form action="" method="POST">
+            <div class="form-group row">
+              <label for="client" class="col-xs-2 col-form-label">Client</label>
+              <div class="col-xs-4">
+                <select class="form-control" id="client" name="client">
+                  {% for client in clients %}
+                  <option value="{{ client.name }}">{{ client.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="priority" class="col-xs-2 col-form-label">Priority</label>
+              <div class="col-xs-8">
+                <label class="form-check-inline hoverkins" title="Something is probably on fire">
+                  <input class="form-check-input" type="radio" name="priority" id="priority1" value="1"> 1
+                </label>
+                <label class="form-check-inline hoverkins" title="Sooner than later please">
+                  <input class="form-check-input" type="radio" name="priority" id="priority2" value="2"> 2
+                </label>
+                <label class="form-check-inline hoverkins" title="Whenever is fine">
+                  <input class="form-check-input" type="radio" name="priority" id="priority3" value="3"> 3
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="title" class="col-sm-2 col-form-label">Target Date</label>
+              <div class="col-sm-10">
+                  <input type="date" class="form-control" id="target_date" name="target_date" placeholder="Target Date">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="title" class="col-xs-2 col-form-label">Title</label>
+              <div class="col-xs-10">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="description" class="col-xs-2 col-form-label"></label>
+              <div class="col-xs-10">
+                <textarea class="form-control" id="description" name="description" placeholder="Description" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="request_url" class="col-xs-2 col-form-label">Related URL</label>
+              <div class="col-xs-10">
+                <input type="url" class="form-control" id="request_url" name="request_url" placeholder="Related URL">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="client" class="col-xs-2 col-form-label">Product Category</label>
+              <div class="col-xs-4">
+                <select class="form-control" id="product_areas" name="product_areas">
+                  {% for product in product_areas %}
+                  <option value="{{ product.name }}">{{ product.name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="offset-sm-2 col-xs-4">
+                <input type="submit" class="btn active btn-outline-danger" name="submit" value="Submit">
+              </div>
+            </div>
+
+          </form>
+        </div><!-- /submit-div -->
+      </div>
+    </div>
+    <hr />
 
     <!-- bootstrap is needy -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-    <script src="/static/tether.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="/static/vendor/tether.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tooltipster/3.3.0/js/jquery.tooltipster.min.js"></script>
+    <script src="/static/app.js"></script>
   </body>
 </html>

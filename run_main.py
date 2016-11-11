@@ -11,23 +11,15 @@ PRODUCTS_API_URL = BASE_API_URL + 'products/'
 REQUESTS_API_URL = BASE_API_URL + 'requests/'
 
 
-@app.route('/')
-def index():
-    name = requests.get(USER_API_URL).json()['_items'][0]['username']
-    current = requests.get(REQUESTS_API_URL).json()['_items']
-    return render_template('base.html', name=name, current=current)
-
-
-@app.route('/style')
-def style():
-    return render_template('test.html')
-
-
-@app.route('/request', methods=['GET', 'POST'])
-def new_request():
+@app.route('/', methods=['GET', 'POST'])
+def main():
     """ I'm in charge of submitting pretty new feature requests.
         There is most definitely a better way to do this out there.
     """
+
+    clients = [i for i in requests.get(CLIENT_API_URL).json()['_items']]
+    product_areas = [i for i in requests.get(PRODUCTS_API_URL).json()['_items']]
+    current = requests.get(REQUESTS_API_URL).json()['_items']
 
     if request.method == 'POST':
         # grab item ID's since that is what our API is looking for
@@ -56,10 +48,13 @@ def new_request():
         }
         response = requests.request("POST", REQUESTS_API_URL, data=payload, headers=headers)
 
-        error = response.text
-        return error
+        if response.json()['_status'] == "OK":
+            return render_template('base.html', status='ok', current=current, product_areas=product_areas, clients=clients)
 
-    return render_template('request.html')
+        results = response.text
+        return results
+
+    return render_template('base.html', current=current, product_areas=product_areas, clients=clients)
 
 
 if __name__ == '__main__':

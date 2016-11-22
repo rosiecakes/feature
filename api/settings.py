@@ -5,6 +5,8 @@ Settings for Eve API
 XML=False
 RESOURCE_METHODS = ['GET', 'POST']
 ITEM_METHODS = ['GET', 'DELETE', 'PATCH']
+URL_PREFIX = "api"
+SERVER_NAME = None
 
 DOMAIN = {
     'users': {

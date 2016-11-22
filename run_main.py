@@ -4,7 +4,9 @@ from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
-BASE_API_URL = 'http://127.0.0.1:1212/'
+
+
+BASE_API_URL = 'http://127.0.0.1:1212/api/'
 USER_API_URL = BASE_API_URL + 'users/'
 CLIENT_API_URL = BASE_API_URL + 'clients/'
 PRODUCTS_API_URL = BASE_API_URL + 'products/'
@@ -58,4 +60,4 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=2222)
+    app.run(port=2121, debug=True)
